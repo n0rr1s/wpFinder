@@ -1,0 +1,14 @@
+# Search through list of IPs for potential WordPress sites
+
+import os, sys, requests
+
+scope = open(sys.argv[1],'r').readlines()
+
+for ip in scope:
+    try:
+	r = requests.get('http://'+ip.strip('\n'))
+	if 'wordpress' in r.text.lower():
+        #if r.status_code == requests.codes.ok:
+		print ip
+    except:
+        continue
